@@ -40,6 +40,17 @@
           <div id="paymentSummary" class="info-value">
             سيتم عرض رقم التذكرة وطريقة الدفع المختارة هنا بعد الحجز.
           </div>
+          <form id="bookingForm" class="info-value" onsubmit="return false;" style="margin-top:0.8rem;">
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <input id="buyerName" type="text" placeholder="الاسم" aria-label="الاسم" style="flex:1;min-width:150px;" />
+              <input id="buyerPhone" type="tel" placeholder="الهاتف (اختياري)" aria-label="الهاتف" style="flex:1;min-width:150px;" />
+              <input id="buyerEmail" type="email" placeholder="البريد الإلكتروني (اختياري)" aria-label="الإيميل" style="flex:1;min-width:200px;" />
+              <input id="buyerQty" type="number" min="1" value="1" placeholder="عدد التذاكر" aria-label="عدد التذاكر" style="width:120px;" />
+            </div>
+            <div style="margin-top:0.5rem;font-size:0.9rem;color:#444;">
+              أدخل بيانات الحجز قبل اختيار طريقة الدفع. سيتم تسجيل هذه البيانات مع التذكرة.
+            </div>
+          </form>
         </article>
 
         <article class="info-item">
@@ -59,6 +70,11 @@
               <button type="button" class="payment-btn" onclick="handleInstapayClick()">
                 <span class="payment-badge">محلي - مصر</span>
                 <span>InstaPay (تجريبي)</span>
+              </button>
+
+              <button type="button" class="payment-btn" onclick="handleTestPaidClick()">
+                <span class="payment-badge">للتجربة</span>
+                <span>تم الدفع (تجربة)</span>
               </button>
             </div>
 
