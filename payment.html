@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>الدفع - إفطار رمضان - اتحاد طلبة جامعة الإسكندرية الأهلية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page">
+  <header class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-logo">
+        <img src="571217735_821161784183083_11823729130709533_n.jpg" alt="شعار اتحاد طلبة جامعة الإسكندرية الأهلية" />
+      </div>
+      <div class="navbar-title">
+        اتحاد طلبة جامعة الإسكندرية الأهلية
+      </div>
+    </div>
+    <nav class="navbar-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="iftar.html">عن الإفطار</a>
+      <a href="payment.html" class="active">الدفع</a>
+      <a href="admin.html">لوحة الإدارة</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-header">
+        <div class="section-kicker">إتمام الدفع</div>
+        <h1 class="section-title">الدفع الإلكتروني لإفطار رمضان</h1>
+        <p class="section-subtitle">
+          تأكد من مراجعة تفاصيل حجزك، ثم اختر طريقة الدفع المناسبة لإكمال عملية الحجز.
+        </p>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-item">
+          <div class="info-label">رقم التذكرة وبياناتك</div>
+          <div id="paymentSummary" class="info-value">
+            سيتم عرض رقم التذكرة وطريقة الدفع المختارة هنا بعد الحجز.
+          </div>
+        </article>
+
+        <article class="info-item">
+          <div class="info-label">طرق الدفع الإلكترونية</div>
+          <div class="info-value">
+            <div class="payment-methods">
+              <button type="button" class="payment-btn" title="PayPal" aria-label="Pay with PayPal">
+                <span class="payment-badge">دفع دولي</span>
+                <span>PayPal</span>
+              </button>
+
+              <button type="button" class="payment-btn" onclick="handleFawryClick()">
+                <span class="payment-badge">محلي - مصر</span>
+                <span>فوري (تجريبي)</span>
+              </button>
+
+              <button type="button" class="payment-btn" onclick="handleInstapayClick()">
+                <span class="payment-badge">محلي - مصر</span>
+                <span>InstaPay (تجريبي)</span>
+              </button>
+            </div>
+
+            <div style="margin-top:1rem;">
+              <strong>ملاحظة مهمة:</strong> هذا الموقع لا يخزن بيانات بطاقاتك البنكية، وجميع عمليات الدفع
+              تتم عبر مزودي الدفع المعتمدين (PayPal / فوري / InstaPay).
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>اتحاد طلبة جامعة الإسكندرية الأهلية – الدفع الإلكتروني لإفطار رمضان.</div>
+      <div>للاستفسارات حول المدفوعات يرجى التواصل مع مسؤول الاتحاد.</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

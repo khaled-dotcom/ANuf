@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>اتحاد طلبة جامعة الإسكندرية الأهلية - إفطار رمضان</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="موقع اتحاد طلبة جامعة الإسكندرية الأهلية لحجز إفطار رمضان للطلاب." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page">
+  <header class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-logo">
+        <img src="571217735_821161784183083_11823729130709533_n.jpg" alt="شعار اتحاد طلبة جامعة الإسكندرية الأهلية" />
+      </div>
+      <div class="navbar-title">
+        اتحاد طلبة جامعة الإسكندرية الأهلية
+      </div>
+    </div>
+    <nav class="navbar-links">
+      <a href="index.html" class="active">الرئيسية</a>
+      <a href="iftar.html">عن الإفطار</a>
+      <a href="payment.html">الدفع</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          إفطار رمضان ١٤٤٧هـ
+        </div>
+        <h1 class="hero-title">
+          إفطار جماعي لطلاب جامعة الإسكندرية الأهلية
+        </h1>
+        <p class="hero-subtitle">
+          يدعوكم اتحاد الطلبة لحضور إفطار رمضاني يجمع طلاب الجامعة في أجواء روحانية وعائلية،
+          مع برنامج مسابقات وأنشطة رمضانية مميزة.
+        </p>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">الموعد</span>
+            <span class="hero-meta-value">أثناء شهر رمضان (اليوم يحدد لاحقاً)</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">المكان</span>
+            <span class="hero-meta-value">حرم جامعة الإسكندرية الأهلية - سموحة الجديدة</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">سعر الوجبة</span>
+            <span class="hero-meta-value">١٠٠ جنيه مصري</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#reservation" class="btn btn-primary">احجز مكانك الآن</a>
+          <a href="iftar.html" class="btn btn-outline">التفاصيل الكاملة عن الإفطار</a>
+        </div>
+      </div>
+
+      <aside class="card" id="reservation">
+        <h2 style="margin-top:0; margin-bottom:0.5rem; font-size:1.15rem; color:var(--primary-color);">
+          نموذج حجز إفطار رمضان
+        </h2>
+        <p style="margin-top:0; margin-bottom:0.9rem; font-size:0.9rem; color:var(--muted-text);">
+          أدخل بياناتك وعدد الوجبات، ثم انتقل لصفحة الدفع الإلكتروني لإتمام الحجز.
+        </p>
+
+        <form
+          id="subscriptionForm"
+          autocomplete="on"
+          action="https://script.google.com/macros/s/AKfycbyyRZvEHn5a1_xJdZBLFneDvoBSXz_j1pzW0Ca5sUJoUbdMsWfkyhRqGmcnFkOFegB_Mw/exec"
+          method="POST"
+        >
+          <div class="form-group">
+            <label class="form-label" for="name">الاسم الثلاثي</label>
+            <input class="form-input" type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">البريد الإلكتروني الجامعي</label>
+            <input class="form-input" type="email" id="email" name="email" required />
+            <div class="form-help">يفضل بريد ANU الرسمي إن وجد.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">رقم الهاتف (واتساب)</label>
+            <input class="form-input" type="tel" id="phone" name="phone" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="mealsCount">عدد الوجبات</label>
+            <input class="form-input" type="number" id="mealsCount" name="mealsCount" min="1" max="20" value="1" required />
+            <div class="form-help">السعر: ١٠٠ جنيه مصري لكل وجبة.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="paymentMethod">طريقة الدفع المفضلة</label>
+            <select class="form-select" id="paymentMethod" name="paymentMethod">
+              <option value="paypal">PayPal</option>
+              <option value="fawry">فوري</option>
+              <option value="instapay">InstaPay</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="notes">ملاحظات إضافية (اختياري)</label>
+            <textarea class="form-textarea" id="notes" name="notes" placeholder="أي ملاحظات غذائية أو أخرى..."></textarea>
+          </div>
+
+          <div id="subscriptionStatus" class="alert" aria-live="polite"></div>
+
+          <div class="form-footer">
+            <div class="price-tag">١٠٠ جنيه / وجبة</div>
+            <button type="submit" class="btn btn-primary">متابعة إلى صفحة الدفع</button>
+          </div>
+
+          <div class="form-help" style="margin-top:0.7rem;">
+            في حال واجهتك مشكلة في الموقع يمكنك استخدام
+            <a href="https://docs.google.com/forms/d/YOUR_GOOGLE_FORM_ID/viewform" target="_blank" rel="noopener noreferrer">
+              نموذج جوجل البديل
+            </a>.
+          </div>
+        </form>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-kicker">لماذا هذا الإفطار؟</div>
+        <h2 class="section-title">مساحة للقاء، التعارف، وروح رمضان</h2>
+        <p class="section-subtitle">
+          يسعى اتحاد الطلبة إلى خلق مساحة آمنة وداعمة تجمع طلاب الجامعة من مختلف الكليات،
+          مع أنشطة خفيفة تناسب أجواء الشهر الكريم، وفرصة للتعارف وتكوين صداقات جديدة.
+        </p>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-item">
+          <div class="info-label">برنامج رمضاني</div>
+          <div class="info-value">فقرة دينية قصيرة، مسابقات، وفقرة تعريف بأنشطة الاتحاد.</div>
+        </article>
+        <article class="info-item">
+          <div class="info-label">حضور منظم</div>
+          <div class="info-value">مقاعد محدودة لضمان تجربة مريحة وآمنة للجميع.</div>
+        </article>
+        <article class="info-item">
+          <div class="info-label">أولوية لأبناء الجامعة</div>
+          <div class="info-value">الحجز مخصص لطلاب وطالبات جامعة الإسكندرية الأهلية.</div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        اتحاد طلبة جامعة الإسكندرية الأهلية – إفطار رمضان للعام الجامعي الحالي.
+        هذا الموقع غير رسمي للجامعة، لكنه مخصص لخدمة أنشطة الاتحاد الطلابي.
+      </div>
+      <div>
+        للتواصل مع الاتحاد:
+        <a href="mailto:students.union@anu.edu.eg">students.union@anu.edu.eg</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
