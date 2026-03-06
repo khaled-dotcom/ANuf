@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ضع هنا رابط الـ Web App الخاص بـ Google Apps Script بعد النشر
 const SHEETS_WEBAPP_URL =
-  'https://script.google.com/macros/s/AKfycbwG2ZNjpuxseIwUhIol18fFUJHA9BkPR3OFK1SmQ0uduD5mut1IbsLx-Cy3xNurdBnF5g/exec';
+  'https://script.google.com/macros/s/AKfycbxeT8Ai7DE_HJXNhqRVj6_ePfbShcyPsb8Tabxdv4T753utqRc_7nq39z3cwVa9t4IUYA/exec';
 
 function getBookingDetailsFromUrlOrPage() {
   const params = new URLSearchParams(window.location.search);
