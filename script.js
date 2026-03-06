@@ -172,49 +172,10 @@ function getBookingDetailsFromUrlOrPage() {
 }
 
 async function sendPaymentToSheet({ method }) {
-  if (!SHEETS_WEBAPP_URL || SHEETS_WEBAPP_URL.startsWith('PUT_')) {
-    console.warn('لم يتم ضبط رابط Google Apps Script بعد.');
-    return { ticketNumber: generateLocalTicketNumber() };
-  }
-
-  const booking = getBookingDetailsFromUrlOrPage();
-
-  const payload = {
-    name: booking.name || 'غير محدد',
-    email: booking.email || '',
-    phone: booking.phone || '',
-    mealsCount: booking.mealsCount || '1',
-    preferredMethod: booking.preferredMethod || method,
-    notes: booking.notes || '',
-    method,
-    createdAt: new Date().toISOString(),
-  };
-
-  try {
-    const res = await fetch(SHEETS_WEBAPP_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      console.error('خطأ في استدعاء Google Apps Script', await res.text());
-      return { ticketNumber: generateLocalTicketNumber() };
-    }
-
-    const data = await res.json();
-    // نتوقع أن يرجع الـ API قيمة ticketNumber
-    if (data && data.ticketNumber) {
-      return { ticketNumber: String(data.ticketNumber) };
-    }
-
-    return { ticketNumber: generateLocalTicketNumber() };
-  } catch (err) {
-    console.error('خطأ في الاتصال بـ Google Sheets:', err);
-    return { ticketNumber: generateLocalTicketNumber() };
-  }
+  // هذا المسار باستخدام fetch غالبًا يفشل على المواقع الثابتة بسبب CORS/Preflight مع Google Apps Script.
+  // سنستخدم مسار GET + redirect من داخل Apps Script. أبقينا الدالة لتوافق الاسم، لكنها الآن تعمل redirect.
+  redirectToSheetsWebApp({ method });
+  return { ticketNumber: '' };
 }
 
 // رقم تذكرة محلي احتياطي في حال فشل الاتصال بالـ API
@@ -253,48 +214,45 @@ function navigateToConfirmation({ ticketNumber, method }) {
 
 // دوال الأزرار في صفحة الدفع
 async function handleFawryClick() {
-  const params = new URLSearchParams(window.location.search);
-  const { ticketNumber } = await sendPaymentToSheet({
-    method: 'fawry',
-  });
-
-  // بعد حفظ البيانات في Google Sheet نعيد تحميل الصفحة نفسها مع باراميترات
-  const urlParams = new URLSearchParams();
-  urlParams.set('ticket', ticketNumber);
-  urlParams.set('method', 'fawry');
-  // نعيد تمرير نفس بيانات الحجز في الرابط
-  ['name', 'email', 'phone', 'mealsCount', 'paymentMethod', 'notes'].forEach((field) => {
-    const value = params.get(field);
-    if (value != null && value !== '') {
-      urlParams.set(field, value);
-    }
-  });
-
-  window.location.search = urlParams.toString();
+  redirectToSheetsWebApp({ method: 'fawry' });
 }
 
 async function handleInstapayClick() {
-  const params = new URLSearchParams(window.location.search);
-  const { ticketNumber } = await sendPaymentToSheet({
-    method: 'instapay',
-  });
-
-  const urlParams = new URLSearchParams();
-  urlParams.set('ticket', ticketNumber);
-  urlParams.set('method', 'instapay');
-  ['name', 'email', 'phone', 'mealsCount', 'paymentMethod', 'notes'].forEach((field) => {
-    const value = params.get(field);
-    if (value != null && value !== '') {
-      urlParams.set(field, value);
-    }
-  });
-
-  window.location.search = urlParams.toString();
+  redirectToSheetsWebApp({ method: 'instapay' });
 }
 
 // زر تجريبي: كأنه الدفع اكتمل
 async function handleTestPaidClick() {
-  const { ticketNumber } = await sendPaymentToSheet({ method: 'test_paid' });
-  navigateToConfirmation({ ticketNumber, method: 'test_paid' });
+  redirectToSheetsWebApp({ method: 'test_paid' });
+}
+
+function buildConfirmationReturnUrl() {
+  const base = new URL('.', window.location.href); // نفس فولدر الموقع (مثلاً /ANuf/)
+  return new URL('confirmation.html', base).toString();
+}
+
+function redirectToSheetsWebApp({ method }) {
+  if (!SHEETS_WEBAPP_URL || SHEETS_WEBAPP_URL.startsWith('PUT_')) {
+    alert('لم يتم ضبط رابط Google Apps Script بعد.');
+    return;
+  }
+
+  const booking = getBookingDetailsFromUrlOrPage();
+  const params = new URLSearchParams();
+
+  // أين يرجع بعد التسجيل في الشيت
+  params.set('returnUrl', buildConfirmationReturnUrl());
+
+  // البيانات
+  params.set('method', method);
+  if (booking.name) params.set('name', booking.name);
+  if (booking.email) params.set('email', booking.email);
+  if (booking.phone) params.set('phone', booking.phone);
+  if (booking.mealsCount) params.set('mealsCount', booking.mealsCount);
+  if (booking.preferredMethod) params.set('preferredMethod', booking.preferredMethod);
+  if (booking.notes) params.set('notes', booking.notes);
+  params.set('createdAt', new Date().toISOString());
+
+  window.location.href = `${SHEETS_WEBAPP_URL}?${params.toString()}`;
 }
 
